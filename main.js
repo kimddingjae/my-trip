@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function async spin() {
+async function spin() {
   showLoading();
   const doElem = document.getElementById("do");
   const sigunElem = document.getElementById("sigun");
