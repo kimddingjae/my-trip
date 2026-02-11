@@ -13,7 +13,7 @@ body {
 /* 1. 상단 마진 30px 추가 (전체화면 대비) */
 h3 {
   height: 40px;
-  margin: 100px 0 10px 0 !important; /* 상단 마진을 30px로 확보 */
+  margin: 70px 0 10px 0 !important; /* 상단 마진을 30px로 확보 */
   font-size: 1.3em;
   line-height: 40px;
   text-align: center;
@@ -101,7 +101,7 @@ svg {
 #map {
   width: calc(100% - 32px);
   max-width: 600px;
-  height: 48vh; /* 남은 공간의 60% 가량 할당 */
+  height: 46vh; /* 남은 공간의 60% 가량 할당 */
   margin: 0 auto;
   border-radius: 16px;
   border: 1px solid #e0e0e0;
@@ -126,7 +126,7 @@ svg {
 #aiResult {
   width: calc(100% - 32px);
   max-width: 600px;
-  height: 32vh; /* 지도 아래 남은 공간 활용 */
+  height: 34vh; /* 지도 아래 남은 공간 활용 */
   margin: 10px auto 20px auto;
   padding: 15px;
   background: #ffffff;
@@ -194,6 +194,7 @@ svg {
   font-weight: bold;
   color: #333;
 }
+
 
 
 
