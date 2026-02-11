@@ -71,8 +71,20 @@ function spin() {
   sigunElem.innerText = randSigun;
 
   const fullName = randDo + " " + randSigun;
+  
+  // 2. AI 결과창 초기화
+  const aiResultElem = document.getElementById("aiResult");
+  if (aiResultElem) aiResultElem.innerText = "AI가 맛집과 여행지를 찾고 있습니다...";
 
-  //sendToGPT(randDo, randSigun)
+  // 3. Gemini 호출 (chat.js 실행)
+  const prompt = `${fullName} 여행지 3곳, 맛집 3곳 추천해줘.`;
+  const aiResponse = await callGemini(prompt); // 아래 작성한 함수 호출
+
+  // 4. 화면에 결과 출력
+  if (aiResultElem) {
+    aiResultElem.innerText = aiResponse;
+  }
+  
   geocoder.addressSearch(fullName, function (result, status) {
     if (status === kakao.maps.services.Status.OK && result && result.length) {
       const lat = parseFloat(result[0].y);
@@ -107,66 +119,6 @@ function spin() {
   hideLoading();
 }
 
-async function sendToGPT(randDo, randSigun) {
-  const el = document.getElementById("gptResult");
-  el.textContent = "GPT 추천을 불러오는 중...";
-
-  if (!window.askGPT) {
-    el.textContent = "chat.js(askGPT)가 로드되지 않았습니다.";
-    return;
-  }
-
-  try {
-    const fullName = `${randDo} ${randSigun}`;
-    const content = await window.askGPT({
-      prompt: `
-당신은 한국 여행 큐레이터입니다.
-지역: ${fullName}
-요청: 3시간 안에 가볍게 즐길 수 있는 명소 3곳과 대표 먹거리 3가지를, 한 줄 설명과 함께 추천해 주세요. 먹거리는 가게도 추천해 주세요.
-형식:
-[관광지]
-1) ...
-2) ...
-3) ...
-[먹거리]
-1) ...
-2) ...
-3) ...
-`,
-    });
-
-    // 문자열을 HTML로 변환
-    el.innerHTML = formatGPTResponse(content);
-  } catch (e) {
-    hideLoading();
-    console.error(e);
-    el.textContent = "GPT 추천을 불러오지 못했습니다.\n" + e.message;
-  }
-}
-
-// GPT 응답 문자열 → HTML 변환 함수
-function formatGPTResponse(text) {
-  hideLoading();
-  let html = "";
-  const sections = text.split(/\[(.*?)\]/g);
-  // → ["", "관광지", "\n1) ...", "먹거리", "\n1) ..."]
-
-  for (let i = 1; i < sections.length; i += 2) {
-    const title = sections[i].trim();
-    const body = sections[i + 1].trim();
-
-    const items = body.split(/\d+\)\s*/).filter(Boolean);
-    // ["장소 - 설명", "장소 - 설명", ...]
-
-    html += `<h4>${title}</h4><ul>`;
-    for (const item of items) {
-      html += `<li>${item.trim()}</li>`;
-    }
-    html += "</ul>";
-  }
-  return html;
-}
-
 function clear() {
   const mapContainer = document.getElementById("map");
   const mapOption = {
@@ -192,4 +144,22 @@ function showLoading() {
 
 function hideLoading() {
   document.getElementById("loadingOverlay").style.display = "none";
+}
+
+// chat.js를 실제로 호출하는 통신 함수
+async function callGemini(text) {
+  try {
+    const response = await fetch(VERCEL_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+    
+    const result = await response.json();
+    // Gemini의 응답 구조에 맞춰 텍스트 추출
+    return result.candidates?.[0]?.content?.parts?.[0]?.text || "답변을 가져오지 못했습니다.";
+  } catch (err) {
+    console.error("연결 에러:", err);
+    return "서버와 통신하는 중 오류가 발생했습니다.";
+  }
 }
