@@ -1,6 +1,7 @@
 // main.js
 let map, geocoder, marker, circle;
-
+// 이 주소는 브라우저가 내 Vercel 서버(chat.js)를 찾아가기 위한 지도입니다.
+const VERCEL_URL = "https://trip-backend.vercel.app/api/chat";
 window.onload = function () {
   const mapContainer = document.getElementById("map");
   const mapOption = {
