@@ -13,7 +13,7 @@ body {
 /* 1. 상단 마진 30px 추가 (전체화면 대비) */
 h3 {
   height: 40px;
-  margin: 50px 0 10px 0 !important; /* 상단 마진을 30px로 확보 */
+  margin: 10px 0 10px 0 !important; /* 상단 마진을 30px로 확보 */
   font-size: 1.3em;
   line-height: 40px;
   text-align: center;
@@ -194,6 +194,7 @@ svg {
   font-weight: bold;
   color: #333;
 }
+
 
 
 
