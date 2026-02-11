@@ -156,21 +156,21 @@ function hideLoading() {
 }
 
 async function callGemini(text) {
-  try {
+ try {
     const response = await fetch(VERCEL_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text })
     });
     
-    if (!response.ok) throw new Error("네트워크 응답 에러");
-    console.log(response)
+    if (!response.ok) throw new Error("서버 응답 오류");
+
     const result = await response.json();
-    console.log(result);
-    // 💡 수정: 서버에서 보낸 'reply' 속성을 읽습니다.
-    return result.reply || "답변을 가져오지 못했습니다.";
+    
+    // 💡 중요: 서버에서 'reply'라는 이름으로 보냈으므로 여기서도 'reply'를 찾습니다.
+    return result.reply || "추천 정보를 찾지 못했습니다.";
   } catch (err) {
-    console.error("에러:", err);
-    return "서버 연결에 실패했습니다.";
+    console.error("연결 에러:", err);
+    return "AI와 연결하는 중 문제가 발생했습니다.";
   }
 }
