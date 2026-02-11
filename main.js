@@ -80,8 +80,7 @@ async function spin() {
   // 3. Gemini 호출 (chat.js 실행)
   const prompt = `${fullName} 여행지 3곳, 맛집 3곳 추천해줘.`;
   const aiResponse = await callGemini(prompt); // 아래 작성한 함수 호출
-console.log(prompt)
-  console.log(aiResponse)
+
   // 4. 화면에 결과 출력
   if (aiResultElem) {
     aiResultElem.innerText = aiResponse;
