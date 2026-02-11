@@ -10,10 +10,10 @@ body {
   flex-direction: column; /* 세로로 정렬 */
 }
 
-/* 2. 상단 고정 영역 (제목 + 여백) */
+/* 1. 상단 마진 30px 추가 (전체화면 대비) */
 h3 {
-  height: 40px; /* 높이 고정 */
-  margin: 20px 0 10px 0 !important;
+  height: 40px;
+  margin: 30px 0 10px 0 !important; /* 상단 마진을 30px로 확보 */
   font-size: 1.3em;
   line-height: 40px;
   text-align: center;
@@ -158,17 +158,41 @@ svg {
   white-space: pre-wrap; /* 줄바꿈 유지 */
 }
 
+/* 2. 로딩 오버레이 및 회전 애니메이션 */
 #loadingOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  display: none; /* 기본은 숨김 */
+  background: rgba(255, 255, 255, 0.9); /* 배경을 좀 더 불투명하게 */
+  display: none; 
+  flex-direction: column; /* 아이콘과 텍스트 세로 정렬 */
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* 지도보다 위에 있어야 함 */
+  z-index: 9999;
+}
+
+/* 무한 회전하는 로딩 아이콘 (CSS로 구현) */
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #FF3DE5; /* 지도 서클 색상과 통일 */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 로딩 텍스트 스타일 */
+.loading-text {
+  font-weight: bold;
+  color: #333;
 }
 
 
