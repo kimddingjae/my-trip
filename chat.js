@@ -1,4 +1,4 @@
-const VERCEL_URL = "https://your-project-name.vercel.app/api/chat";
+const VERCEL_URL = "https://trip-backend.vercel.app/api/Gemini";
 
 async function callGemini(text) {
   try {
