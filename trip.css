@@ -48,6 +48,7 @@ h3 {
   box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
+  pointer-events: none;
 }
 
 /* 4. 도/광역시 슬롯 보정 */
@@ -59,6 +60,7 @@ select#do.slot {
   font-size: 0.85em;
   box-sizing: border-box;
   text-align: center;
+  pointer-events: none;
 }
 
 /* 3. 공통 버튼 스타일 */
@@ -194,6 +196,7 @@ svg {
   font-weight: bold;
   color: #333;
 }
+
 
 
 
