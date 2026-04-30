@@ -1,6 +1,6 @@
 // city.js
 const regions = [ "전라남도"];
-const sigun = {전라남도 : ["목포시"]  };
+const sigun = {전라남도 : ["강진군"]  };
 /*
 const regions = [
   "대구광역시",
