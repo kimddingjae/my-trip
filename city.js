@@ -1,5 +1,16 @@
 // city.js
+const regions = [
+"경상남도"
+];
 
+const sigun = {
+경상남도: [
+"통영시",
+"거제시"
+ ]
+};
+
+/*
 const regions = [
 "부산광역시",
 "울산광역시",
@@ -73,7 +84,7 @@ const sigun = {
 };
 
 
-/*
+
 const regions = [
   "대구광역시",
   "인천광역시",
