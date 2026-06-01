@@ -54,7 +54,7 @@ async function spin() {
   } else {
     randDo = selectedDo;
   }
-
+  alert(rando)
   let sigunList = regions[randDo];
   let keys = Object.keys(sigun); //키를 가져옵니다. 이때, keys 는 반복가능한 객체가 됩니다.
 
