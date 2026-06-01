@@ -39,6 +39,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function spin() {
+
+  const spinBtn = document.getElementById("spinBtn");
+  
+  // 1. 이미 실행 중이라면 함수를 곧바로 종료해서 연타를 막음
+  if (spinBtn.disabled) return; 
+  
+  // 2. 버튼을 비활성화 상태로 만듦
+  spinBtn.disabled = true;
+  
   showLoading();
   const doElem = document.getElementById("do");
   const sigunElem = document.getElementById("sigun");
@@ -119,6 +128,10 @@ async function spin() {
     }
   });
   hideLoading();
+  
+  setTimeout(() => {
+    spinBtn.disabled = false;
+  }, 2000); 
 }
 
 function clear() {
