@@ -78,9 +78,10 @@ async function spin() {
   if (aiResultElem) aiResultElem.innerText = "AI가 맛집과 여행지를 찾고 있습니다...";
 
   // 3. Gemini 호출 (chat.js 실행)
-  const prompt = `${fullName} 여행지 3곳, 맛집 3곳 추천해줘.`;
+  //const prompt = `${fullName} 여행지 3곳, 맛집 3곳 추천해줘.`;
+  const prompt = `${fullName} 여행지 3곳, 맛집 3곳 추천해줘. 상세한 설명은 빼고, 장소 이름과 한 줄 요약만 깔끔하게 리스트로 보여줘.`;
   const aiResponse = await callGemini(prompt); // 아래 작성한 함수 호출
-
+  
   // 4. 화면에 결과 출력
   if (aiResultElem) {
     aiResultElem.innerText = aiResponse;
