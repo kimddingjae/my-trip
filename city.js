@@ -1,5 +1,5 @@
 // city.js
-
+/*
 const regions = [
 "부산광역시",
 "울산광역시",
@@ -71,9 +71,9 @@ const sigun = {
 "하동군"
  ]
 };
+*/
 
 
-/*
 const regions = [
   "대구광역시",
   "인천광역시",
@@ -251,6 +251,6 @@ const sigun = {
   ]
 };
 
-*/
+
 
 
