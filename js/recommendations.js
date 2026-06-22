@@ -1,27 +1,8 @@
-import { FOOD_TEMPLATES, SPOT_TEMPLATES } from "./constants.js";
 import { dom, state } from "./state.js";
 import { getCityLabel, getCityName } from "./city-lookup.js";
+import { fetchRecommendations } from "./gemini-api.js";
 import { resetMapZoom, applyFocusDrawZoom } from "./map-zoom.js";
 import { redraw } from "./map-render.js";
-
-function mockRecommendations(label) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        spots: SPOT_TEMPLATES.map((t) => ({
-          name: `${label} ${t.suffix}`,
-          desc: t.desc,
-          tag: t.tag,
-        })),
-        foods: FOOD_TEMPLATES.map((t) => ({
-          name: `${label} ${t.suffix}`,
-          desc: t.desc,
-          tag: t.tag,
-        })),
-      });
-    }, 1400);
-  });
-}
 
 function renderRecCards(items) {
   return items
@@ -29,30 +10,43 @@ function renderRecCards(items) {
       (item) =>
         `<article class="rec-card">
             <div class="rec-card-head">
-              <span class="rec-name">${item.name}</span>
-              <span class="rec-tag">${item.tag}</span>
+              <span class="rec-name">${escapeHtml(item.name)}</span>
+              <span class="rec-tag">${escapeHtml(item.tag)}</span>
             </div>
-            <p class="rec-desc">${item.desc}</p>
+            <p class="rec-desc">${escapeHtml(item.desc)}</p>
           </article>`,
     )
     .join("");
 }
 
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function renderRecLoading() {
   dom.resultBody.innerHTML = `
-          <div class="rec-loading-msg">추천 준비 중…</div>
+          <div class="rec-loading-msg">AI가 맛집과 여행지를 찾고 있습니다…</div>
           <div class="rec-skeleton"></div>
           <div class="rec-skeleton"></div>
           <div class="rec-skeleton"></div>`;
 }
 
+function renderRecError(message) {
+  dom.resultBody.innerHTML = `
+          <div class="rec-error">${escapeHtml(message)}</div>`;
+}
+
 function renderRecContent(data) {
   dom.resultBody.innerHTML = `
           <div class="tab-panel active" data-panel="spots">
-            ${renderRecCards(data.spots)}
+            ${data.spots.length ? renderRecCards(data.spots) : '<p class="rec-empty">볼거리 추천이 없습니다.</p>'}
           </div>
           <div class="tab-panel" data-panel="foods">
-            ${renderRecCards(data.foods)}
+            ${data.foods.length ? renderRecCards(data.foods) : '<p class="rec-empty">맛집 추천이 없습니다.</p>'}
           </div>`;
 }
 
@@ -83,7 +77,6 @@ export function collapseResultPanel() {
 
 export function openResultPanel(cityCode) {
   const name = getCityName(cityCode);
-  const label = getCityLabel(cityCode);
   if (!name) return;
 
   const token = ++state.recLoadToken;
@@ -96,8 +89,13 @@ export function openResultPanel(cityCode) {
   renderRecLoading();
   applyFocusDrawZoom();
 
-  mockRecommendations(label).then((data) => {
-    if (token !== state.recLoadToken) return;
-    renderRecContent(data);
-  });
+  fetchRecommendations(name)
+    .then((data) => {
+      if (token !== state.recLoadToken) return;
+      renderRecContent(data);
+    })
+    .catch(() => {
+      if (token !== state.recLoadToken) return;
+      renderRecError("AI와 연결하는 중 문제가 발생했습니다.");
+    });
 }

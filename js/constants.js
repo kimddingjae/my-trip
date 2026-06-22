@@ -55,42 +55,6 @@ export const LABEL = {
   fontSize: 9,
 };
 
-export const SPOT_TEMPLATES = [
-  {
-    suffix: "강변 산책로",
-    desc: "한적한 물길 따라 걷기 좋은 코스예요.",
-    tag: "산책",
-  },
-  {
-    suffix: "시립 박물관",
-    desc: "지역 역사를 가볍게 살펴볼 수 있어요.",
-    tag: "문화",
-  },
-  {
-    suffix: "전망대 공원",
-    desc: "일몰 시간에 가면 분위기가 특히 좋아요.",
-    tag: "전망",
-  },
-];
-
-export const FOOD_TEMPLATES = [
-  {
-    suffix: "시장 국밥",
-    desc: "현지인들이 자주 찾는 든든한 한 끼예요.",
-    tag: "현지맛",
-  },
-  {
-    suffix: "골목 카페",
-    desc: "여행 중 잠깐 쉬어가기 좋은 공간이에요.",
-    tag: "카페",
-  },
-  {
-    suffix: "명물 떡볶이",
-    desc: "간단히 맛보기 좋은 간식거리예요.",
-    tag: "간식",
-  },
-];
-
 export const PROV_ALIASES = {
   경기도: "41",
   경기: "41",
