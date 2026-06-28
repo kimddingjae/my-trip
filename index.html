@@ -103,11 +103,6 @@
           transform: rotate(360deg);
         }
       }
-      @keyframes shimmer {
-        to {
-          background-position: 200% 0;
-        }
-      }
 
       .main-area {
         flex: 1;
@@ -338,46 +333,6 @@
         overflow: hidden;
       }
 
-      .rec-loading {
-        padding: 4px 0 4px;
-      }
-      .rec-loading-msg {
-        text-align: center;
-        font-size: 12px;
-        color: #94a3b8;
-        padding: 4px 0 10px;
-      }
-      .rec-loading-bar {
-        height: 5px;
-        margin: 0 4px 14px;
-        border-radius: 999px;
-        background: #e2e8f0;
-        overflow: hidden;
-      }
-      .rec-loading-bar-fill {
-        height: 100%;
-        width: 0%;
-        border-radius: 999px;
-        background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
-        background-size: 200% 100%;
-        animation: loading-bar-shine 1.4s linear infinite;
-        transition: width 0.2s ease-out;
-      }
-      @keyframes loading-bar-shine {
-        to {
-          background-position: 200% 0;
-        }
-      }
-
-      .rec-skeleton {
-        height: 64px;
-        margin-bottom: 8px;
-        border-radius: 12px;
-        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.2s infinite;
-      }
-
       .rec-error {
         text-align: center;
         font-size: 13px;
@@ -402,6 +357,45 @@
         font-family: "Noto Sans KR", sans-serif;
         font-weight: 500;
         font-size: 12px;
+      }
+
+      .ai-loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 23, 42, 0.42);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+      }
+      .ai-loading-overlay[hidden] {
+        display: none;
+      }
+      .ai-loading-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 28px 32px;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+      }
+      .ai-loading-spinner {
+        width: 44px;
+        height: 44px;
+        border: 3px solid #e2e8f0;
+        border-top-color: #3b82f6;
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+      }
+      .ai-loading-text {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #475569;
       }
     </style>
   </head>
@@ -496,6 +490,19 @@
         </div>
         <div class="result-body" id="result-body"></div>
       </aside>
+    </div>
+
+    <div
+      id="ai-loading-overlay"
+      class="ai-loading-overlay"
+      hidden
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div class="ai-loading-box">
+        <div class="ai-loading-spinner" aria-hidden="true"></div>
+        <p class="ai-loading-text">AI가 맛집과 여행지를 찾고 있습니다…</p>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
