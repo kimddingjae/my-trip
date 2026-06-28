@@ -121,4 +121,5 @@ export function initDomRefs() {
   dom.resultTabs = dom.resultPanel.querySelectorAll(".result-tab");
   dom.cntEl = document.getElementById("cnt");
   dom.cntEl.textContent = state.visitCodes.size;
+  dom.aiLoadingOverlay = document.getElementById("ai-loading-overlay");
 }

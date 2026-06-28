@@ -35,4 +35,5 @@ export const dom = {
   resultBody: null,
   resultTabs: null,
   cntEl: null,
+  aiLoadingOverlay: null,
 };
