@@ -338,6 +338,37 @@
         overflow: hidden;
       }
 
+      .rec-loading {
+        padding: 4px 0 4px;
+      }
+      .rec-loading-msg {
+        text-align: center;
+        font-size: 12px;
+        color: #94a3b8;
+        padding: 4px 0 10px;
+      }
+      .rec-loading-bar {
+        height: 5px;
+        margin: 0 4px 14px;
+        border-radius: 999px;
+        background: #e2e8f0;
+        overflow: hidden;
+      }
+      .rec-loading-bar-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+        background-size: 200% 100%;
+        animation: loading-bar-shine 1.4s linear infinite;
+        transition: width 0.2s ease-out;
+      }
+      @keyframes loading-bar-shine {
+        to {
+          background-position: 200% 0;
+        }
+      }
+
       .rec-skeleton {
         height: 64px;
         margin-bottom: 8px;
@@ -346,12 +377,7 @@
         background-size: 200% 100%;
         animation: shimmer 1.2s infinite;
       }
-      .rec-loading-msg {
-        text-align: center;
-        font-size: 12px;
-        color: #94a3b8;
-        padding: 4px 0 8px;
-      }
+
       .rec-error {
         text-align: center;
         font-size: 13px;
