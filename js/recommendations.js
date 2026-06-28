@@ -94,8 +94,10 @@ export function openResultPanel(cityCode) {
       if (token !== state.recLoadToken) return;
       renderRecContent(data);
     })
-    .catch(() => {
+    .catch((err) => {
       if (token !== state.recLoadToken) return;
-      renderRecError("AI와 연결하는 중 문제가 발생했습니다.");
+      renderRecError(
+        err?.message || "AI와 연결하는 중 문제가 발생했습니다.",
+      );
     });
 }

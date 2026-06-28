@@ -1,5 +1,34 @@
 const VERCEL_URL = "https://trip-backend-sable.vercel.app/api/chat";
 
+const AI_ERROR_MESSAGES = {
+  depleted:
+    "AI 사용량이 소진되었습니다. 잠시 후 다시 시도해 주세요.",
+  overloaded:
+    "AI 서버가 혼잡합니다. 잠시 후 다시 시도해 주세요.",
+  default: "AI와 연결하는 중 문제가 발생했습니다.",
+};
+
+function toUserErrorMessage(text) {
+  const msg = String(text || "").toLowerCase();
+  if (
+    msg.includes("prepayment credits are depleted") ||
+    msg.includes("billing") ||
+    msg.includes("quota") ||
+    msg.includes("resource exhausted")
+  ) {
+    return AI_ERROR_MESSAGES.depleted;
+  }
+  if (
+    msg.includes("high demand") ||
+    msg.includes("overloaded") ||
+    msg.includes("503") ||
+    msg.includes("unavailable")
+  ) {
+    return AI_ERROR_MESSAGES.overloaded;
+  }
+  return null;
+}
+
 function buildPrompt(fullName) {
   return `${fullName} 여행지 3곳, 맛집 3곳 추천해줘. 상세한 설명은 빼고, 장소 이름과 한 줄 요약만 깔끔하게 리스트로 보여줘.
 
@@ -19,10 +48,20 @@ export async function callGemini(text) {
     if (!response.ok) throw new Error("서버 응답 오류");
 
     const result = await response.json();
-    return result.reply || "추천 정보를 찾지 못했습니다.";
+    const reply = result.reply || result.error || "";
+    const userError = toUserErrorMessage(reply);
+    if (userError) throw new Error(userError);
+    if (!reply) throw new Error(AI_ERROR_MESSAGES.default);
+    return reply;
   } catch (err) {
     console.error("연결 에러:", err);
-    throw err;
+    if (
+      err instanceof Error &&
+      Object.values(AI_ERROR_MESSAGES).includes(err.message)
+    ) {
+      throw err;
+    }
+    throw new Error(AI_ERROR_MESSAGES.default);
   }
 }
 
@@ -119,9 +158,11 @@ function parseTextFallback(text) {
 
 export async function fetchRecommendations(fullName) {
   const reply = await callGemini(buildPrompt(fullName));
+  const userError = toUserErrorMessage(reply);
+  if (userError) throw new Error(userError);
   const data = parseRecommendations(reply);
   if (!data) {
-    throw new Error(reply || "추천 정보를 파싱하지 못했습니다.");
+    throw new Error(AI_ERROR_MESSAGES.default);
   }
   return data;
 }
