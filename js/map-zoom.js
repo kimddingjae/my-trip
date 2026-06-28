@@ -22,7 +22,10 @@ export function applyMapZoom() {
   const minK = getMapZoomMin();
   const zoomOutBtn = document.getElementById("zoom-out-btn");
   const zoomInBtn = document.getElementById("zoom-in-btn");
-  if (zoomOutBtn) zoomOutBtn.disabled = t.k <= minK + 0.001;
+  const zoomResetBtn = document.getElementById("zoom-reset-btn");
+  const atMinZoom = t.k <= minK + 0.001;
+  if (zoomOutBtn) zoomOutBtn.disabled = atMinZoom;
+  if (zoomResetBtn) zoomResetBtn.disabled = atMinZoom;
   if (zoomInBtn) zoomInBtn.disabled = t.k >= MAP_ZOOM_MAX - 0.001;
   refreshSelectedLabel();
 }
