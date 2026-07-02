@@ -27,9 +27,14 @@ function getAvailableCities(provCode) {
 }
 
 function pickRandomCity(provCode) {
+  /*
   const cities = getAvailableCities(provCode);
   if (!cities.length) return null;
   return cities[Math.floor(Math.random() * cities.length)];
+  */
+  // 서산만 추첨
+  if (provCode !== "44") return null;
+  return { code: "34050", name: "서산시", label: "서산" };
 }
 
 function pickRandomProv() {
