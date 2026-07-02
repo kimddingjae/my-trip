@@ -71,12 +71,14 @@ function setRecTab(tab) {
 }
 
 export function initRecommendations() {
+  if (!dom.resultTabs?.forEach) return;
   dom.resultTabs.forEach((btn) => {
     btn.addEventListener("click", () => setRecTab(btn.dataset.tab));
   });
 }
 
 export function collapseResultPanel() {
+  if (!dom.mainArea || !dom.resultPanel || !dom.resultIdle) return;
   state.recLoadToken++;
   hideAiLoading();
   clearTravelHints();
@@ -89,6 +91,9 @@ export function collapseResultPanel() {
 }
 
 export function openResultPanel(cityCode) {
+  if (!dom.mainArea || !dom.resultPanel || !dom.resultIdle) return;
+  if (!dom.resultRegion || !dom.resultBody) return;
+
   const name = getCityName(cityCode);
   if (!name) return;
 

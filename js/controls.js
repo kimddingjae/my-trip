@@ -25,6 +25,8 @@ function pickRandomCity(provCode) {
 }
 
 export function initControls() {
+  if (!dom.provSel || !dom.citySel) return;
+
   if (dom.visitCount) {
     dom.visitCount.textContent = String(visitedCodes.length);
   }
@@ -122,7 +124,7 @@ export function initDomRefs() {
   dom.resultPanel = document.getElementById("result-panel");
   dom.resultRegion = document.getElementById("result-region");
   dom.resultBody = document.getElementById("result-body");
-  dom.resultTabs = dom.resultPanel.querySelectorAll(".result-tab");
+  dom.resultTabs = dom.resultPanel?.querySelectorAll(".result-tab") ?? [];
   dom.travelHints = document.getElementById("travel-hints");
   dom.aiLoadingOverlay = document.getElementById("ai-loading-overlay");
   dom.visitCount = document.getElementById("visit-count");

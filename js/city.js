@@ -21,28 +21,31 @@ export const PROV_NAMES = {
 
 export const regions = Object.keys(PROV_NAMES);
 
-export const visitedCodes = [
-  "11",
-  "21",
-  "24",
-  "35010",
-  "35050",
-  "35360",
-  "36010",
-  "36020",
-  "36030",
-  "36060",
-  "36390",
-  "37010",
-  "37040",
-  "37100",
-  "37360",
-  "37400",
-  "38050",
-  "38090",
-  "38100",
-  "38340",
+/** 방문한 지역 (label → KOSTAT 2018 code) */
+export const visitedCities = [
+  { label: "서울", code: "11" },
+  { label: "예천", code: "37400" },
+  { label: "안동", code: "37040" },
+  { label: "포항", code: "37010" },
+  { label: "경산", code: "37100" },
+  { label: "청도", code: "37360" },
+  { label: "양산", code: "38100" },
+  { label: "부산", code: "21" },
+  { label: "고성", code: "38340" }, // 경상남도 고성군
+  { label: "통영", code: "38050" },
+  { label: "거제", code: "38090" },
+  { label: "전주", code: "35010" },
+  { label: "순창", code: "35360" },
+  { label: "남원", code: "35050" },
+  { label: "광주", code: "24" },
+  { label: "순천", code: "36030" },
+  { label: "광양", code: "36060" },
+  { label: "여수", code: "36020" },
+  { label: "목포", code: "36010" },
+  { label: "강진", code: "36390" },
 ];
+
+export const visitedCodes = visitedCities.map((c) => c.code);
 
 export const sigun = {
   11: [{ code: "11", name: "서울특별시", label: "서울" }],
