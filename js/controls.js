@@ -11,7 +11,7 @@ const visitedSet = new Set(visitedCodes);
 function fillCitySelect(provCode) {
   dom.citySel.innerHTML = '<option value="">시/군/구</option>';
   if (provCode && sigun[provCode]) {
-    sigun[provCode].forEach((c) => {
+    getAvailableCities(provCode).forEach((c) => {
       const o = document.createElement("option");
       o.value = c.code;
       o.textContent = c.label;
@@ -47,12 +47,14 @@ export function initControls() {
     dom.visitCount.textContent = String(visitedCodes.length);
   }
 
-  regions.forEach((code) => {
+  regions
+    .filter((code) => getAvailableCities(code).length)
+    .forEach((code) => {
     const o = document.createElement("option");
     o.value = code;
     o.textContent = PROV_NAMES[code] ?? code;
     dom.provSel.appendChild(o);
-  });
+    });
 
   dom.provSel.addEventListener("change", () => {
     fillCitySelect(dom.provSel.value);
