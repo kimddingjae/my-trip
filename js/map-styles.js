@@ -22,6 +22,16 @@ export function applyDefaultLabelStyle(el) {
     .attr("paint-order", "stroke");
 }
 
+function applyVisitedLabelStyle(el) {
+  el.attr("font-size", getLabelFontSize())
+    .attr("font-family", LABEL.fontFamily)
+    .attr("font-weight", LABEL.fontWeight)
+    .attr("fill", "#ffffff")
+    .attr("stroke", "#db2777")
+    .attr("stroke-width", 2 / getZoomScale())
+    .attr("paint-order", "stroke");
+}
+
 export function applySelectedLabelStyle(el) {
   el.attr("font-size", getLabelFontSize())
     .attr("font-family", LABEL.fontFamily)
@@ -59,6 +69,7 @@ export function refreshSelectedLabel() {
     const el = d3.select(this);
     const code = el.attr("data-code");
     if (code === state.selectedCode) applySelectedLabelStyle(el);
+    else if (visitedSet.has(code)) applyVisitedLabelStyle(el);
     else applyDefaultLabelStyle(el);
   });
 }
@@ -74,5 +85,6 @@ export function appendLabel(code, x, y, label) {
     .attr("pointer-events", "none")
     .text(label);
   if (code === state.selectedCode) applySelectedLabelStyle(text);
+  else if (visitedSet.has(String(code))) applyVisitedLabelStyle(text);
   else applyDefaultLabelStyle(text);
 }

@@ -6,6 +6,8 @@ import {
   openResultPanel,
 } from "./recommendations.js";
 
+const visitedSet = new Set(visitedCodes);
+
 function fillCitySelect(provCode) {
   dom.citySel.innerHTML = '<option value="">시/군/구</option>';
   if (provCode && sigun[provCode]) {
@@ -18,10 +20,24 @@ function fillCitySelect(provCode) {
   }
 }
 
+function getAvailableCities(provCode) {
+  return (sigun[provCode] || []).filter(
+    (city) => !visitedSet.has(city.code),
+  );
+}
+
 function pickRandomCity(provCode) {
-  const cities = sigun[provCode] || [];
+  const cities = getAvailableCities(provCode);
   if (!cities.length) return null;
   return cities[Math.floor(Math.random() * cities.length)];
+}
+
+function pickRandomProv() {
+  const availableRegions = regions.filter(
+    (code) => getAvailableCities(code).length,
+  );
+  if (!availableRegions.length) return null;
+  return availableRegions[Math.floor(Math.random() * availableRegions.length)];
 }
 
 export function initControls() {
@@ -54,8 +70,8 @@ export function initControls() {
     collapseResultPanel();
 
     const lockedProv = dom.provSel.value;
-    if (lockedProv && !(sigun[lockedProv]?.length)) {
-      alert("선택한 지역에 시/군이 없습니다.");
+    if (lockedProv && !getAvailableCities(lockedProv).length) {
+      alert("선택한 지역에 추첨 가능한 미방문 시/군/구가 없습니다.");
       btn.style.animation = "";
       state.spinning = false;
       return;
@@ -67,7 +83,13 @@ export function initControls() {
       finalProv = lockedProv;
       finalCity = pickRandomCity(lockedProv)?.code || "";
     } else {
-      finalProv = regions[Math.floor(Math.random() * regions.length)];
+      finalProv = pickRandomProv();
+      if (!finalProv) {
+        alert("추첨 가능한 미방문 지역이 없습니다.");
+        btn.style.animation = "";
+        state.spinning = false;
+        return;
+      }
       finalCity = pickRandomCity(finalProv)?.code || "";
     }
 
@@ -93,7 +115,8 @@ export function initControls() {
         const spinCity = pickRandomCity(lockedProv);
         if (spinCity) dom.citySel.value = spinCity.code;
       } else {
-        const rProv = regions[Math.floor(Math.random() * regions.length)];
+        const rProv = pickRandomProv();
+        if (!rProv) return;
         const rCity = pickRandomCity(rProv);
         dom.provSel.value = rProv;
         fillCitySelect(rProv);
