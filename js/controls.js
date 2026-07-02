@@ -81,21 +81,21 @@ export function initControls() {
 
     let finalProv = "44";
     let finalCity = "34050";
-    /*
-    if (lockedProv) {
-      finalProv = lockedProv;
-      finalCity = pickRandomCity(lockedProv)?.code || "";
-    } else {
-      finalProv = pickRandomProv();
-      if (!finalProv) {
-        alert("추첨 가능한 미방문 지역이 없습니다.");
-        btn.style.animation = "";
-        state.spinning = false;
-        return;
-      }
-      finalCity = pickRandomCity(finalProv)?.code || "";
-    }
-  */
+    
+    // if (lockedProv) {
+    //   finalProv = lockedProv;
+    //   finalCity = pickRandomCity(lockedProv)?.code || "";
+    // } else {
+    //   finalProv = pickRandomProv();
+    //   if (!finalProv) {
+    //     alert("추첨 가능한 미방문 지역이 없습니다.");
+    //     btn.style.animation = "";
+    //     state.spinning = false;
+    //     return;
+    //   }
+    //   finalCity = pickRandomCity(finalProv)?.code || "";
+    // }
+  
     const duration = 1000;
     const startTime = Date.now();
 
