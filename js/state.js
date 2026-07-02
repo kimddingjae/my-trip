@@ -1,5 +1,3 @@
-import { visitSigun } from "./city.js";
-
 export const state = {
   selectedCode: null,
   mapFocusCode: null,
@@ -10,9 +8,6 @@ export const state = {
   codeToName: new Map(),
   provNameToCode: new Map(),
   provCityToCode: new Map(),
-  visitCodes: new Set(
-    Object.values(visitSigun).flatMap((list) => list.map((c) => c.code)),
-  ),
   recLoadToken: 0,
   spinning: false,
 };
@@ -34,6 +29,7 @@ export const dom = {
   resultRegion: null,
   resultBody: null,
   resultTabs: null,
-  cntEl: null,
+  travelHints: null,
   aiLoadingOverlay: null,
+  visitCount: null,
 };

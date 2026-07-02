@@ -46,9 +46,6 @@ export const MAP_ZOOM_MIN_FOCUS = 0.15;
 export const MAP_ZOOM_DRAW_IN_STEPS = 2;
 export const MAP_FOCUS_FIT_SCALE = 0.72;
 
-export const VISIT_PINK = "#f472b6";
-export const VISIT_PINK_STROKE = "#db2777";
-
 export const LABEL = {
   fontFamily: "Noto Sans KR, sans-serif",
   fontWeight: "700",

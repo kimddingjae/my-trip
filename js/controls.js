@@ -1,4 +1,4 @@
-import { PROV_NAMES, regions, sigun } from "./city.js";
+import { PROV_NAMES, regions, sigun, visitedCodes } from "./city.js";
 import { dom, state } from "./state.js";
 import { highlightSelection, selectByCode, redraw } from "./map-render.js";
 import {
@@ -25,6 +25,10 @@ function pickRandomCity(provCode) {
 }
 
 export function initControls() {
+  if (dom.visitCount) {
+    dom.visitCount.textContent = String(visitedCodes.length);
+  }
+
   regions.forEach((code) => {
     const o = document.createElement("option");
     o.value = code;
@@ -119,7 +123,7 @@ export function initDomRefs() {
   dom.resultRegion = document.getElementById("result-region");
   dom.resultBody = document.getElementById("result-body");
   dom.resultTabs = dom.resultPanel.querySelectorAll(".result-tab");
-  dom.cntEl = document.getElementById("cnt");
-  dom.cntEl.textContent = state.visitCodes.size;
+  dom.travelHints = document.getElementById("travel-hints");
   dom.aiLoadingOverlay = document.getElementById("ai-loading-overlay");
+  dom.visitCount = document.getElementById("visit-count");
 }

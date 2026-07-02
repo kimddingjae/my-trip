@@ -19,47 +19,37 @@ export const PROV_NAMES = {
   48: "경상남도",
 };
 
-export const regions = [
-  "22", "23", "25", "26", "29",
-  "41", "42", "43", "44", "45", "46", "47", "48",
+export const regions = Object.keys(PROV_NAMES);
+
+export const visitedCodes = [
+  "11",
+  "21",
+  "24",
+  "35010",
+  "35050",
+  "35360",
+  "36010",
+  "36020",
+  "36030",
+  "36060",
+  "36390",
+  "37010",
+  "37040",
+  "37100",
+  "37360",
+  "37400",
+  "38050",
+  "38090",
+  "38100",
+  "38340",
 ];
 
-export const visitRegions = ["11", "21", "24", "45", "46", "47", "48"];
-
-export const visitSigun = {
+export const sigun = {
   11: [{ code: "11", name: "서울특별시", label: "서울" }],
   21: [{ code: "21", name: "부산광역시", label: "부산" }],
-  24: [{ code: "24", name: "광주광역시", label: "광주" }],
-  45: [
-    { code: "35010", name: "전주시", label: "전주" },
-    { code: "35050", name: "남원시", label: "남원" },
-    { code: "35360", name: "순창군", label: "순창" },
-  ],
-  46: [
-    { code: "36010", name: "목포시", label: "목포" },
-    { code: "36020", name: "여수시", label: "여수" },
-    { code: "36030", name: "순천시", label: "순천" },
-    { code: "36060", name: "광양시", label: "광양" },
-    { code: "36390", name: "강진군", label: "강진" },
-  ],
-  47: [
-    { code: "37010", name: "포항시", label: "포항" },
-    { code: "37040", name: "안동시", label: "안동" },
-    { code: "37100", name: "경산시", label: "경산" },
-    { code: "37360", name: "청도군", label: "청도" },
-    { code: "37400", name: "예천군", label: "예천" },
-  ],
-  48: [
-    { code: "38050", name: "통영시", label: "통영" },
-    { code: "38090", name: "거제시", label: "거제" },
-    { code: "38340", name: "고성군", label: "고성" },
-    { code: "38100", name: "양산시", label: "양산" },
-  ],
-};
-
-export const sigun = {
   22: [{ code: "22", name: "대구광역시", label: "대구" }],
   23: [{ code: "23", name: "인천광역시", label: "인천" }],
+  24: [{ code: "24", name: "광주광역시", label: "광주" }],
   25: [{ code: "25", name: "대전광역시", label: "대전" }],
   26: [{ code: "26", name: "울산광역시", label: "울산" }],
   29: [{ code: "29", name: "세종특별자치시", label: "세종" }],
@@ -147,6 +137,9 @@ export const sigun = {
     { code: "34380", name: "태안군", label: "태안" },
   ],
   45: [
+    { code: "35010", name: "전주시", label: "전주" },
+    { code: "35050", name: "남원시", label: "남원" },
+    { code: "35360", name: "순창군", label: "순창" },
     { code: "35020", name: "군산시", label: "군산" },
     { code: "35030", name: "익산시", label: "익산" },
     { code: "35040", name: "정읍시", label: "정읍" },
@@ -160,6 +153,11 @@ export const sigun = {
     { code: "35380", name: "부안군", label: "부안" },
   ],
   46: [
+    { code: "36010", name: "목포시", label: "목포" },
+    { code: "36020", name: "여수시", label: "여수" },
+    { code: "36030", name: "순천시", label: "순천" },
+    { code: "36060", name: "광양시", label: "광양" },
+    { code: "36390", name: "강진군", label: "강진" },
     { code: "36040", name: "나주시", label: "나주" },
     { code: "36310", name: "담양군", label: "담양" },
     { code: "36320", name: "곡성군", label: "곡성" },
@@ -197,8 +195,15 @@ export const sigun = {
     { code: "37390", name: "칠곡군", label: "칠곡" },
     { code: "37410", name: "봉화군", label: "봉화" },
     { code: "37420", name: "울진군", label: "울진" },
+    { code: "37100", name: "경산시", label: "경산" },
+    { code: "37360", name: "청도군", label: "청도" },
+    { code: "37400", name: "예천군", label: "예천" },
   ],
   48: [
+    { code: "38050", name: "통영시", label: "통영" },
+    { code: "38090", name: "거제시", label: "거제" },
+    { code: "38340", name: "고성군", label: "고성" },
+    { code: "38100", name: "양산시", label: "양산" },
     { code: "38110", name: "창원시", label: "창원" },
     { code: "38030", name: "진주시", label: "진주" },
     { code: "38070", name: "김해시", label: "김해" },

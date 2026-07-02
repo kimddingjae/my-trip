@@ -1,14 +1,10 @@
-import { PROV_NAMES, sigun, visitSigun } from "./city.js";
+import { PROV_NAMES, sigun } from "./city.js";
 import { state } from "./state.js";
 
 export function findCityEntry(code) {
   if (!code) return null;
   for (const prov of Object.keys(sigun)) {
     const entry = (sigun[prov] || []).find((c) => c.code === code);
-    if (entry) return { prov, entry };
-  }
-  for (const prov of Object.keys(visitSigun)) {
-    const entry = (visitSigun[prov] || []).find((c) => c.code === code);
     if (entry) return { prov, entry };
   }
   return null;

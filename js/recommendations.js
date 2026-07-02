@@ -1,6 +1,13 @@
 import { dom, state } from "./state.js";
 import { getCityName } from "./city-lookup.js";
 import { fetchRecommendations } from "./gemini-api.js";
+import {
+  clearTravelHints,
+  loadTravelHints,
+  renderTravelHints,
+  renderTravelHintsError,
+  renderTravelHintsLoading,
+} from "./travel-hints.js";
 import { resetMapZoom, applyFocusDrawZoom } from "./map-zoom.js";
 import { redraw } from "./map-render.js";
 
@@ -72,6 +79,7 @@ export function initRecommendations() {
 export function collapseResultPanel() {
   state.recLoadToken++;
   hideAiLoading();
+  clearTravelHints();
   state.mapFocusCode = null;
   resetMapZoom();
   dom.mainArea.classList.remove("has-result");
@@ -92,8 +100,23 @@ export function openResultPanel(cityCode) {
   dom.resultRegion.textContent = name;
   setRecTab("spots");
   dom.resultBody.innerHTML = "";
+  renderTravelHintsLoading();
   showAiLoading();
   applyFocusDrawZoom();
+
+  loadTravelHints(cityCode)
+    .then((hints) => {
+      if (token !== state.recLoadToken) return;
+      renderTravelHints(hints);
+    })
+    .catch((err) => {
+      if (token !== state.recLoadToken) return;
+      const msg =
+        err?.code === 1
+          ? "위치 권한을 허용하면 교통 힌트를 볼 수 있습니다."
+          : err?.message || "교통 정보를 불러오지 못했습니다.";
+      renderTravelHintsError(msg);
+    });
 
   fetchRecommendations(name)
     .then((data) => {

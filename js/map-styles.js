@@ -1,5 +1,8 @@
-import { LABEL, VISIT_PINK, VISIT_PINK_STROKE } from "./constants.js";
+import { LABEL } from "./constants.js";
+import { visitedCodes } from "./city.js";
 import { dom, state } from "./state.js";
+
+const visitedSet = new Set(visitedCodes);
 
 function getZoomScale() {
   return d3.zoomTransform(dom.svg.node()).k;
@@ -7,16 +10,6 @@ function getZoomScale() {
 
 function getLabelFontSize() {
   return LABEL.fontSize / getZoomScale();
-}
-
-export function applyVisitLabelStyle(el) {
-  el.attr("font-size", getLabelFontSize())
-    .attr("font-family", LABEL.fontFamily)
-    .attr("font-weight", LABEL.fontWeight)
-    .attr("fill", "#ffffff")
-    .attr("stroke", "#831843")
-    .attr("stroke-width", 2 / getZoomScale())
-    .attr("paint-order", "stroke");
 }
 
 export function applyDefaultLabelStyle(el) {
@@ -46,21 +39,19 @@ export function applyDefaultStyle(el) {
     .attr("stroke-width", 0.8);
 }
 
-export function applyVisitedStyle(el) {
-  el.attr("fill", VISIT_PINK)
-    .attr("fill-opacity", 0.55)
-    .attr("stroke", VISIT_PINK_STROKE)
-    .attr("stroke-width", 1.2);
+function applyVisitedStyle(el) {
+  el.attr("fill", "#f472b6")
+    .attr("fill-opacity", 0.52)
+    .attr("stroke", "#db2777")
+    .attr("stroke-width", 1.1);
 }
 
 export function styleByCode(code) {
-  if (state.visitCodes.has(code)) return applyVisitedStyle;
-  return applyDefaultStyle;
+  return visitedSet.has(String(code)) ? applyVisitedStyle : applyDefaultStyle;
 }
 
 export function restoreStyle(code) {
-  if (state.visitCodes.has(code)) return applyVisitedStyle;
-  return applyDefaultStyle;
+  return visitedSet.has(String(code)) ? applyVisitedStyle : applyDefaultStyle;
 }
 
 export function refreshSelectedLabel() {
@@ -68,7 +59,6 @@ export function refreshSelectedLabel() {
     const el = d3.select(this);
     const code = el.attr("data-code");
     if (code === state.selectedCode) applySelectedLabelStyle(el);
-    else if (state.visitCodes.has(code)) applyVisitLabelStyle(el);
     else applyDefaultLabelStyle(el);
   });
 }
@@ -84,6 +74,5 @@ export function appendLabel(code, x, y, label) {
     .attr("pointer-events", "none")
     .text(label);
   if (code === state.selectedCode) applySelectedLabelStyle(text);
-  else if (state.visitCodes.has(code)) applyVisitLabelStyle(text);
   else applyDefaultLabelStyle(text);
 }
