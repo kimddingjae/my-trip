@@ -43,6 +43,7 @@ export const visitedCities = [
   { label: "여수", code: "36020" },
   { label: "목포", code: "36010" },
   { label: "강진", code: "36390" },
+  { label: "서산", code: "34050" },
 ];
 
 export const visitedCodes = visitedCities.map((c) => c.code);
