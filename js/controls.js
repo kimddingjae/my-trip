@@ -79,8 +79,8 @@ export function initControls() {
       return;
     }
 
-    const finalProv = "";
-    const finalCity = "";
+    let finalProv = "";
+    let finalCity = "";
     if (lockedProv) {
       finalProv = lockedProv;
       finalCity = pickRandomCity(lockedProv)?.code || "";
