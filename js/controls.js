@@ -79,6 +79,10 @@ export function initControls() {
       return;
     }
 
+
+    let finalProv = "48";
+    let finalCity = "38030";
+    /*
     let finalProv = "";
     let finalCity = "";
     if (lockedProv) {
@@ -94,7 +98,7 @@ export function initControls() {
      }
        finalCity = pickRandomCity(finalProv)?.code || "";
     }
-  
+  */
     const duration = 1000;
     const startTime = Date.now();
 
