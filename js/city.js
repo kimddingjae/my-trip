@@ -44,6 +44,7 @@ export const visitedCities = [
   { label: "목포", code: "36010" },
   { label: "강진", code: "36390" },
   { label: "서산", code: "34050" },
+  { label: "진주", code: "38030" },
 ];
 
 export const visitedCodes = visitedCities.map((c) => c.code);
