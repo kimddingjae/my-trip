@@ -45,8 +45,14 @@ export const visitedCities = [
   { label: "강진", code: "36390" },
   { label: "서산", code: "34050" },
   { label: "진주", code: "38030" },
+  { label: "강릉", code: "32030" },
+  { label: "동해", code: "32040" },
+  { label: "속초", code: "32060" },
+  { label: "삼척", code: "32070" },
+  { label: "양양", code: "32410" },
+  { label: "울진", code: "37420" },
+  { label: "영덕", code: "37350" },
 ];
-
 export const visitedCodes = visitedCities.map((c) => c.code);
 
 export const sigun = {
