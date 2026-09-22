@@ -21,7 +21,9 @@ function fillCitySelect(provCode) {
 }
 
 function getAvailableCities(provCode) {
-  return (sigun[provCode] || []).filter(
+  const cities = provCode.split(",").map(sigun);
+  
+  return (sigun.map((idx,city) => cities[idx]) || []).filter(
     (city) => !visitedSet.has(city.code),
   );
 }
