@@ -24,20 +24,21 @@ export const regions = Object.keys(PROV_NAMES);
 /** 방문한 지역 (label → KOSTAT 2018 code) */
 export const visitedCities = [
   { label: "서울", code: "11" },
+  { label: "부산", code: "21" },
+  { label: "광주", code: "24" },
+  { label: "울산", code: "26" },
   { label: "예천", code: "37400" },
   { label: "안동", code: "37040" },
   { label: "포항", code: "37010" },
   { label: "경산", code: "37100" },
   { label: "청도", code: "37360" },
   { label: "양산", code: "38100" },
-  { label: "부산", code: "21" },
   { label: "고성", code: "38340" }, // 경상남도 고성군
   { label: "통영", code: "38050" },
   { label: "거제", code: "38090" },
   { label: "전주", code: "35010" },
   { label: "순창", code: "35360" },
   { label: "남원", code: "35050" },
-  { label: "광주", code: "24" },
   { label: "순천", code: "36030" },
   { label: "광양", code: "36060" },
   { label: "여수", code: "36020" },
