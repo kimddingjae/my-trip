@@ -21,11 +21,12 @@ function fillCitySelect(provCode) {
 }
 
 function getAvailableCities(provCode) {
-  const cities = provCode.split(",").map(sigun);
+  const codes = provCode ? provCode.split(",") : null;
   
-  return (sigun.map((idx,city) => cities[idx]) || []).filter(
-    (city) => !visitedSet.has(city.code),
-  );
+  return sigun.filter((city) => {
+    const matched = !codes || codes.includes(city.code);
+    return matched && !visitedSet.has(city.code);
+  });
 }
 
 function pickRandomCity(provCode) {
