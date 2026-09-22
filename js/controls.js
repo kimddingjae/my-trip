@@ -21,12 +21,9 @@ function fillCitySelect(provCode) {
 }
 
 function getAvailableCities(provCode) {
-  const codes = provCode ? provCode.split(",") : null;
-  
-  return sigun.filter((city) => {
-    const matched = !codes || codes.includes(city.code);
-    return matched && !visitedSet.has(city.code);
-  });
+  return (sigun[provCode] || []).filter(
+    (city) => !visitedSet.has(city.code),
+  );
 }
 
 function pickRandomCity(provCode) {
