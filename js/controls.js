@@ -209,8 +209,7 @@ export function initControls() {
       return;
     }
 
-    let finalProv = "47";
-    let finalCity = "37020";
+
     /*
     state.spinning = true;
     setProvOpen(false);
@@ -225,6 +224,8 @@ export function initControls() {
     let finalProv = pickFrom(pool);
     let finalCity = pickRandomCity(finalProv)?.code || "";
     */
+    let finalProv = 47;
+    let finalCity = "37020";
     const duration = 1000;
     const startTime = Date.now();
 
