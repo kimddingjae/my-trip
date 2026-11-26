@@ -219,9 +219,10 @@ export function initControls() {
     collapseResultPanel();
     if (lockedProvs.length) fillCitySelect(lockedProvs);
 
-    let finalProv = pickFrom(pool);
-    let finalCity = pickRandomCity(finalProv)?.code || "";
-
+    //let finalProv = pickFrom(pool);
+    //let finalCity = pickRandomCity(finalProv)?.code || "";
+    let finalProv = 47;
+    let finalCity = 37020;
     const duration = 1000;
     const startTime = Date.now();
 
