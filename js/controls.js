@@ -210,7 +210,7 @@ export function initControls() {
     }
 
 
-    /*
+  
     state.spinning = true;
     setProvOpen(false);
     dom.provTrigger.disabled = true;
@@ -220,7 +220,7 @@ export function initControls() {
     selectByCode(null);
     collapseResultPanel();
     if (lockedProvs.length) fillCitySelect(lockedProvs);
-
+  /*
     let finalProv = pickFrom(pool);
     let finalCity = pickRandomCity(finalProv)?.code || "";
     */
