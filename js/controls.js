@@ -209,6 +209,9 @@ export function initControls() {
       return;
     }
 
+    let finalProv = "47";
+    let finalCity = "37020";
+    /*
     state.spinning = true;
     setProvOpen(false);
     dom.provTrigger.disabled = true;
@@ -219,10 +222,9 @@ export function initControls() {
     collapseResultPanel();
     if (lockedProvs.length) fillCitySelect(lockedProvs);
 
-    //let finalProv = pickFrom(pool);
-    //let finalCity = pickRandomCity(finalProv)?.code || "";
-    let finalProv = "47";
-    let finalCity = "37020";
+    let finalProv = pickFrom(pool);
+    let finalCity = pickRandomCity(finalProv)?.code || "";
+    */
     const duration = 1000;
     const startTime = Date.now();
 
