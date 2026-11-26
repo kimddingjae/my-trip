@@ -221,8 +221,8 @@ export function initControls() {
 
     //let finalProv = pickFrom(pool);
     //let finalCity = pickRandomCity(finalProv)?.code || "";
-    let finalProv = 47;
-    let finalCity = 37020;
+    let finalProv = "47";
+    let finalCity = "37020";
     const duration = 1000;
     const startTime = Date.now();
 
